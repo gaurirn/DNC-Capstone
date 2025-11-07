@@ -1,0 +1,70 @@
+/* Import Bootstrap's utility classes */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Define our custom colors */
+:root {
+  --bg-color: #fdf2f2;         /* Light pink background */
+  --card-bg: #ffffff;         /* White card */
+  --btn-color: #d16d8a;       /* Pink button */
+  --btn-hover: #b95c76;     /* Darker pink for hover */
+  --text-primary: #333;
+  --text-secondary: #777;
+}
+
+/* Apply the background color to the whole page */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Style for our main auth card */
+.auth-card {
+  width: 100%;
+  max-width: 400px; /* Set a max width */
+  background-color: var(--card-bg);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem; /* More padding */
+}
+
+/* Custom logo styling */
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--btn-color);
+}
+
+.auth-logo-icon {
+  font-size: 1.8rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--btn-color);
+  color: white;
+  border-radius: 8px;
+}
+
+/* Custom button style */
+.btn-custom {
+  background-color: var(--btn-color);
+  border-color: var(--btn-color);
+  font-weight: 600;
+  padding: 0.75rem;
+}
+.btn-custom:hover {
+  background-color: var(--btn-hover);
+  border-color: var(--btn-hover);
+}
+
+/* Ensure form labels are styled */
+.form-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+}

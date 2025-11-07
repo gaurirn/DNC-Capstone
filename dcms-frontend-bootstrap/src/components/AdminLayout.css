@@ -1,0 +1,55 @@
+/* This file applies to the admin layout */
+
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Use the light pink background for the content area */
+  background-color: var(--bg-color, #fdf2f2);
+}
+
+.admin-header {
+  border-bottom: 1px solid #eee;
+}
+
+/* Sidebar styling */
+.admin-sidebar {
+  min-height: calc(100vh - 56px); /* Full height minus header */
+  border-right: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.admin-sidebar .nav-link {
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+.admin-sidebar .nav-link:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+/* This 'active' class is added by NavLink */
+.admin-sidebar .nav-link.active {
+  background-color: #fdf2f2;
+  color: var(--btn-color, #d16d8a);
+  font-weight: 600;
+}
+
+/* Main content area */
+.admin-content {
+  padding: 2rem;
+}
+
+/* Custom logo from your login page */
+.auth-logo-icon {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background-color: var(--btn-color, #d16d8a);
+  color: white;
+  border-radius: 8px;
+}

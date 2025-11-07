@@ -1,0 +1,144 @@
+/* chat-widget.css (or add to your global stylesheet) */
+
+.chat-widget-container {
+  position: fixed;
+  right: 20px;
+  bottom: 80px; /* space for bubble */
+  width: 360px;
+  z-index: 1050;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  transform-origin: bottom right;
+  pointer-events: auto;
+}
+
+.chat-widget-container.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card layout: use full height inside container */
+.chat-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 60vh; /* main constraint — change as needed */
+  width: 100%;
+  overflow: hidden; /* prevent double scrollbars */
+  border-radius: 12px;
+}
+
+/* header - dark theme */
+.header-dark {
+  background-color: #343a40;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* message list is the scrollable area and grows to fill available space */
+.chat-message-list {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto; /* grow to fill remaining vertical space */
+}
+
+/* style message items */
+.chat-message {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* by sender class 'ai' or 'user' - adjust as per your messages data */
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.ai {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 78%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #f1f3f5; /* user/neutral bubble default */
+  color: #111827;
+  word-wrap: break-word;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+}
+
+/* ai bubble */
+.chat-message.ai .message-bubble {
+  background: linear-gradient(180deg,#f8fafc,#eef2ff);
+}
+
+/* user bubble */
+.chat-message.user .message-bubble {
+  background: #0d6efd;
+  color: #fff;
+  border-radius: 12px 12px 4px 12px;
+}
+
+/* input form pinned at bottom */
+.chat-input-form {
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding: 10px;
+  background: #fff;
+  flex: 0 0 auto;
+}
+
+/* input field style */
+.chat-input {
+  border-radius: 6px;
+}
+
+/* send button */
+.chat-send-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+/* floating bubble toggle */
+.chat-bubble-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1060;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  border: 0;
+  color: #fff;
+}
+
+/* when widget is open, hide the bottom bubble or show a close bubble */
+.chat-bubble-toggle.open-toggle {
+  right: calc(20px + 360px + 8px); /* position near the widget if desired */
+  bottom: 20px;
+}
+
+/* ensure small screens look good */
+@media (max-width: 480px) {
+  .chat-widget-container {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: 20px;
+  }
+  .chat-card {
+    max-height: 70vh;
+  }
+  .chat-bubble-toggle.open-toggle {
+    right: 20px;
+  }
+}
