@@ -60,7 +60,6 @@ function AdminLayout() {
               <Nav.Link as={NavLink} to="/admin/dunning"><PlayBtn className="me-2" /> Dunning</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/curing"><ShieldCheck className="me-2" /> Curing</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/payments"><CreditCard className="me-2" /> Payments</Nav.Link>
-              <Nav.Link as={NavLink} to="/admin/insights"><BarChart className="me-2" /> AI Insights</Nav.Link>
               <Nav.Link as={NavLink} to="/admin/settings"><Gear className="me-2" /> Settings</Nav.Link>
             </Nav>
           </Col>
