@@ -9,19 +9,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
+import com.training.dunningcuring.plan.dto.PlanDTO; // <-- NEW IMPORT
+import com.training.dunningcuring.plan.service.PlanService;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class DunningTools {
 
-    // This is our existing CustomerService
+    
     private final CustomerService customerService;
-
-    /**
-     * Helper to get the username of the logged-in user.
-     * Our CustomerService.getCustomerStatus() method takes a username string.
-     */
+    private final PlanService planService;
+    
     private String getAuthenticatedUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() == null) {
@@ -31,11 +31,7 @@ public class DunningTools {
         // The "name" of the principal is the username (email)
         return authentication.getName();
     }
-
-    /**
-     * This is the one and only tool the AI needs.
-     * It calls our getCustomerStatus() method and formats the result into a simple string.
-     */
+    
     @Tool("Fetches the current customer's complete account status, including profile (status, balance, overdue amount), active subscriptions, and unpaid invoices.")
     public String getCurrentAccountStatus() {
         log.info("AI Tool: Executing getCurrentAccountStatus");
@@ -82,6 +78,42 @@ public class DunningTools {
         } catch (Exception e) {
             log.error("AI Tool: Error fetching customer status", e);
             return "Error: Could not retrieve account information at this time.";
+        }
+    }
+
+    @Tool("Fetches all available plans that the customer can subscribe to.")
+    public String getAvailableSubscriptionPlans() {
+        log.info("AI Tool: Executing getAvailableSubscriptionPlans");
+        try {
+            // 1. Get the logged-in user's name
+            String username = getAuthenticatedUsername();
+
+            // 2. Pass the username to the service method
+            List<PlanDTO> plans = planService.getAvailablePlans(username);
+
+            if (plans == null || plans.isEmpty()) {
+                return "There are currently no plans available for subscription.";
+            }
+
+            // 3. Format the list using the correct DTO field names
+            String planList = plans.stream()
+                    .map(plan -> String.format(
+                            "Plan Name: %s, Price: $%.2f/month, Service: %s, Data: %.0fMB",
+                            plan.getPlanName(),
+                            plan.getPrice(),
+                            plan.getType(), // Use 'type' from your DTO
+                            plan.getDataLimitMb() // Use 'dataLimitMb' from your DTO
+                    ))
+                    .collect(Collectors.joining("; ")); // Separate with semicolons
+
+            return "Here are the available plans: " + planList;
+
+        } catch (IllegalStateException e) {
+            log.warn("AI Tool: User not authenticated.");
+            return "Error: User is not authenticated. Please log in.";
+        } catch (Exception e) {
+            log.error("AI Tool: Error fetching available plans", e);
+            return "Error: Could not retrieve available plans at this time.";
         }
     }
 }
